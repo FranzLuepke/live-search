@@ -1,0 +1,7 @@
+.users {
+    padding: 16px;
+    &__form {
+        display: flex;
+        flex-direction: column;
+    }
+}
