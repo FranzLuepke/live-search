@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { UsersModule } from './users/users.module';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     declarations: [HomeComponent],
@@ -13,6 +13,7 @@ import { UsersModule } from './users/users.module';
         RouterModule,
         ReactiveFormsModule,
         HomeRoutingModule,
+        MatButtonModule,
     ],
 })
 

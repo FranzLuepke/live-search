@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs";
 import { map, startWith } from 'rxjs/operators';
+import { Router } from "@angular/router";
 
 export interface Data {
   searchData: string[];
@@ -24,7 +25,7 @@ export interface Options {
 export class UsersComponent {
     formGroup: FormGroup;
     options: Options = { 
-      firstName: [],
+      firstName: ['John', 'Johny', 'Arnold'],
       lastName: [],
       email: [],
       phone: [],
@@ -33,7 +34,11 @@ export class UsersComponent {
     filteredOptions: Observable<Options>;
     url = 'http://rhlsacbase723.na.rccl.com:8094/api/index/intranet_persistence/query';
 
-    constructor(private formBuilder: FormBuilder, private httpClient: HttpClient) {
+    constructor(
+      private formBuilder: FormBuilder,
+      private httpClient: HttpClient,
+      private router: Router,
+    ) {
       this.formGroup = this.formBuilder.group({
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
@@ -41,11 +46,9 @@ export class UsersComponent {
         phone: ['', [Validators.required, Validators.minLength(6)]],
         customerId: ['', [Validators.required]],
       });
-      console.log("jaja");
       this.filteredOptions = this.formGroup.valueChanges.pipe(
         startWith(''),
         map(name => {
-          console.log(name);
           return {
             firstName: (name['firstName'] ? this._filter(name['firstName'], 'firstName') : this.options.firstName.slice()),
             lastName: (name['lastName'] ? this._filter(name['lastName'], 'lastName') : this.options.lastName.slice()),
@@ -55,7 +58,13 @@ export class UsersComponent {
           } as Options
         }),
       );
-      this.filteredOptions.subscribe();
+      this.filteredOptions.subscribe((data) => {
+        this.options.firstName = data.firstName;
+        this.options.lastName = data.lastName;
+        this.options.email = data.email;
+        this.options.phone = data.phone;
+        this.options.customerId = data.customerId;
+      });
     }
 
     displayFn(user: string): string {
@@ -64,6 +73,8 @@ export class UsersComponent {
 
     private _filter(value: string, type: 'firstName' | 'lastName' | 'email' | 'phone' | 'customerId'): string[] {
         const filterValue = value.toLowerCase();
+        console.log(this.options[type]);
+        console.log(filterValue);
         return this.options[type].filter(option => option.toLowerCase().includes(filterValue));
     }
 
@@ -87,5 +98,9 @@ export class UsersComponent {
           this.options[type] = response.searchData;
         });
       }
+    }
+
+    public async goBack() {
+      await this.router.navigate(['home']);
     }
 }

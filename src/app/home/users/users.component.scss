@@ -1,5 +1,13 @@
 .users {
     padding: 16px;
+    &__header {
+        display: flex;
+        flex-direction: row;
+        &__title {
+            margin: 0;
+        }
+        margin-bottom: 16px;
+    }
     &__form {
         display: flex;
         flex-direction: column;
