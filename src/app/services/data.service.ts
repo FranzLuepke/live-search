@@ -8,7 +8,8 @@ import { User } from "../models/user";
     providedIn: 'root'
 })
 export class DataService {
-    url = '/api/index/intranet_persistence';
+    // url = '/api/index/intranet_persistence';
+    url = "http://10.17.134.107:8094/api/index/argo/query";
 
     constructor(private httpClient: HttpClient) {}
 
@@ -32,6 +33,7 @@ export class DataService {
       const headers = {
         'Ocp-Apim-Subscription-Key': '92ed2d08af93477ebef8d5d2cdd02da8',
         'Ocp-Apim-Trace': 'true',
+        'Content-Type': 'application/json',
       }
 
       let searchString = '';
@@ -50,9 +52,10 @@ export class DataService {
         "size" : 200,
         "fields" : ["*"]
       };
-      const url = "http://10.17.134.107:8094/api/index/argo/query";
-      return this.httpClient.get<Response>('https://livesearchapi.azure-api.net/api/index/intranet_persistence/test');
-      // return this.httpClient.post<Response>(this.url, JSON.stringify(body), { headers });
+      // const url = 'https://livesearchapi.azure-api.net/api/index/intranet_persistence/test';
+      // const url = "http://10.17.134.107:8094/api/index/argo/query";
+      // return this.httpClient.get<Response>('https://livesearchapi.azure-api.net/api/index/intranet_persistence/test');
+      return this.httpClient.post<Response>(this.url, JSON.stringify(body), { headers });
   }
 
     getResponse(): Observable<Response> {
