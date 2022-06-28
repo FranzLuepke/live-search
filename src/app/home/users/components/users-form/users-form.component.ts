@@ -76,7 +76,9 @@ export class UsersFormComponent {
   public search(type: 'firstName' | 'lastName' | 'email' | 'phone' | 'consumerId', $event: any) {
     if ($event?.length > 2) {
       if (type === 'firstName' ||  type === 'lastName') {
-        this.dataService.search($event);
+        this.dataService.search($event).subscribe((response: Response) => {
+          this.emitUsers.emit(response.hits);
+        });
       }
     }
   }
