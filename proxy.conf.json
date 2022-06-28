@@ -1,6 +1,0 @@
-{
-    "/api": {
-        "target": "http://rhlsacbase723.na.rccl.com:8094/api/index/intranet_persistence/query",
-        "secure": false
-    }
-}

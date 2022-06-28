@@ -10,9 +10,16 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './users.component';
 import { HttpClientModule } from '@angular/common/http';
+import { UsersTableComponent } from './components/users-table/users-table.component';
+import { UsersFormComponent } from './components/users-form/users-form.component';
+import { MatTableModule } from '@angular/material/table'; 
 
 @NgModule({
-    declarations: [UsersComponent],
+    declarations: [
+        UsersComponent,
+        UsersFormComponent,
+        UsersTableComponent,
+    ],
     imports: [
         CommonModule,
         RouterModule,
@@ -25,6 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
         HttpClientModule,
         MatButtonModule,
         MatIconModule,
+        MatTableModule,
     ],
     exports: [UsersComponent],
 })

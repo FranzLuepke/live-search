@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [HomeComponent],
@@ -14,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
         ReactiveFormsModule,
         HomeRoutingModule,
         MatButtonModule,
+        HttpClientModule,
     ],
 })
 

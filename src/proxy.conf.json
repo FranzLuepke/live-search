@@ -1,0 +1,7 @@
+{
+    "/test/*": {
+        "target": "https://livesearchapi.azure-api.net/api/index/intranet_persistence",
+        "secure": false,
+        "logLevel": "debug"
+    }
+  }

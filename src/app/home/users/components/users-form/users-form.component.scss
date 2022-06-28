@@ -8,11 +8,8 @@
         }
         margin-bottom: 16px;
     }
-    &__content {
+    &__form {
         display: flex;
         flex-direction: column;
-        &__table {
-            margin-top: 32px;
-        }
     }
 }

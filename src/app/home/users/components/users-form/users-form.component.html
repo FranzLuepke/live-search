@@ -1,0 +1,76 @@
+<form [formGroup]="formGroup" class="users__form">
+  <mat-form-field appearance="outline">
+    <mat-label>First Name</mat-label>
+    <input
+      matInput
+      formControlName="firstName"
+      [matAutocomplete]="firstName"
+      (ngModelChange)="search('firstName', $event)"
+    >
+    <mat-autocomplete #firstName="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let option of options['firstName']" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Last Name</mat-label>
+    <input
+      matInput
+      formControlName="lastName"
+      [matAutocomplete]="lastName"
+      (ngModelChange)="search('lastName', $event)"
+    >
+    <mat-autocomplete #lastName="matAutocomplete">
+      <mat-option *ngFor="let option of options['lastName']" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      formControlName="email"
+      [matAutocomplete]="email"
+      (ngModelChange)="search('email', $event)"
+    >
+    <mat-autocomplete #email="matAutocomplete">
+      <mat-option *ngFor="let option of options['email']" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Phone number</mat-label>
+    <input
+      matInput
+      formControlName="phone"
+      [matAutocomplete]="phone"
+      type="number"
+      (ngModelChange)="search('phone', $event)"
+    >
+    <mat-autocomplete #phone="matAutocomplete">
+      <mat-option *ngFor="let option of options['phone']" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Customer ID</mat-label>
+    <input
+      matInput
+      formControlName="consumerId"
+      [matAutocomplete]="consumerId"
+      (ngModelChange)="search('consumerId', $event)"
+    >
+    <mat-autocomplete #consumerId="matAutocomplete">
+      <mat-option *ngFor="let option of options['consumerId']" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <button mat-raised-button color="primary" [disabled]="isFormValid()" (click)="checkUser()">
+    CHECK USER
+  </button>
+</form>
