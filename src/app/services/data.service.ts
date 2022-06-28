@@ -8,27 +8,32 @@ import { User } from "../models/user";
     providedIn: 'root'
 })
 export class DataService {
-    // url = '/api/index/intranet_persistence';
-    url = '';
+    url = 'http://10.17.134.107:8094/api/index/argo/query';
     username = '';
     password = '';
 
     constructor(private httpClient: HttpClient) {}
 
-    search(type: 'firstName' | 'lastName' | 'email' | 'phone' | 'consumerId', value: string) {
-        const headers = {
-            'Ocp-Apim-Subscription-Key': '92ed2d08af93477ebef8d5d2cdd02da8',
-            'Ocp-Apim-Trace': 'true',
-          }
-          const body = {
-            "query" :{
-              "query" : "id: 060d4784-6195-447c-866b-44a2c7416bc8"
-            },
-            "size" : 200,
-            "fields" : [{type: value}]
-          };
-          
-          return this.httpClient.post<Response>(this.url, JSON.stringify(body), { headers });
+    search(value: string) {
+      const headers = {
+        'Ocp-Apim-Subscription-Key': '92ed2d08af93477ebef8d5d2cdd02da8',
+        'Ocp-Apim-Trace': 'true',
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ' + btoa(`${this.username}:${this.password}`)    
+      }
+      const body = {
+        "query" : {
+          "field": "_all",
+          "prefix": value
+        },
+        "size": 1,
+        "from": 0,
+        "fields" : ["*"],
+        "explain": false,
+        "highlight": {}
+      };
+      console.log(body);
+      return this.httpClient.post<Response>(this.url, JSON.stringify(body), { headers });
     }
 
     searchUser(user: User) {
@@ -56,7 +61,6 @@ export class DataService {
         "fields" : ["*"]
       };
       // const url = 'https://livesearchapi.azure-api.net/api/index/intranet_persistence/test';
-      // const url = "http://10.17.134.107:8094/api/index/argo/query";
       // return this.httpClient.get<Response>('https://livesearchapi.azure-api.net/api/index/intranet_persistence/test');
       return this.httpClient.post<Response>(this.url, JSON.stringify(body), { headers });
   }

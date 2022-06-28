@@ -74,20 +74,11 @@ export class UsersFormComponent {
   }
 
   public search(type: 'firstName' | 'lastName' | 'email' | 'phone' | 'consumerId', $event: any) {
-    // if ($event?.length > 3) {
-    //   const headers = {
-    //     'Ocp-Apim-Subscription-Key': '92ed2d08af93477ebef8d5d2cdd02da8',
-    //     'Ocp-Apim-Trace': 'true',
-    //   }
-    //   const body = {
-    //     "query" :{
-    //       "query" : "id: 060d4784-6195-447c-866b-44a2c7416bc8"
-    //     },
-    //     "size" : 200,
-    //     "fields" : [{type: $event}]
-    //   };
-    //   this.dataService.search(type, $event).subscribe((data) => console.log(data));
-    // }
+    if ($event?.length > 2) {
+      if (type === 'firstName' ||  type === 'lastName') {
+        this.dataService.search($event);
+      }
+    }
   }
 
   public async checkUser() {
