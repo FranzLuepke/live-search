@@ -9,7 +9,9 @@ import { User } from "../models/user";
 })
 export class DataService {
     // url = '/api/index/intranet_persistence';
-    url = "http://10.17.134.107:8094/api/index/argo/query";
+    url = '';
+    username = '';
+    password = '';
 
     constructor(private httpClient: HttpClient) {}
 
@@ -34,6 +36,7 @@ export class DataService {
         'Ocp-Apim-Subscription-Key': '92ed2d08af93477ebef8d5d2cdd02da8',
         'Ocp-Apim-Trace': 'true',
         'Content-Type': 'application/json',
+        'Authorization': 'Basic ' + btoa(`${this.username}:${this.password}`)
       }
 
       let searchString = '';
