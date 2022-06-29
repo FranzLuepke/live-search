@@ -15,15 +15,15 @@ export class UsersComponent {
     private router: Router,
   ) {}
 
-  userWasEmitted(users: UserResponse[]) {
+  userWasEmitted(users: { fields: UserResponse; }[]) {
     const newUsers: User[] = [];
-    users.forEach((user) => {
+    users.forEach((response) => {
       newUsers.push({
-        firstName: user.FIRST_NAME,
-        lastName: user.LAST_NAME,
-        email: user.EMAIL_ADDRESS,
-        phone: user.CNSMR_HOME_PHONE_NBR,
-        consumerId: user.CNSMR_ID
+        firstName: response.fields.FIRST_NAME,
+        lastName: response.fields.LAST_NAME,
+        email: response.fields.EMAIL_ADDRESS,
+        phone: response.fields.CNSMR_HOME_PHONE_NBR,
+        consumerId: response.fields.CNSMR_ID
       });
     });
     console.log(newUsers);

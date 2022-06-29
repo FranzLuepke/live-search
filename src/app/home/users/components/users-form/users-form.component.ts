@@ -20,7 +20,7 @@ export interface Options {
     styleUrls: ['./users-form.component.scss'],
 })
 export class UsersFormComponent {
-  @Output() emitUsers = new EventEmitter<UserResponse[]>();
+  @Output() emitUsers = new EventEmitter<{ fields: UserResponse; }[]>();
   formGroup: FormGroup;
   options: Options = { 
     firstName: ['John', 'Johny', 'Arnold'],
@@ -79,7 +79,7 @@ export class UsersFormComponent {
       console.log(`${type}: ${$event}`);
       this.dataService.search($event).pipe(first()).subscribe((response: Response) => {
         console.log(response);
-        this.emitUsers.emit(response.hits.fields);
+        this.emitUsers.emit(response.hits);
       });
     }
   }
@@ -88,7 +88,7 @@ export class UsersFormComponent {
     const user = this.formGroup.value;
     this.dataService.search(user).pipe(first()).subscribe((response: Response) => {
       console.log(response);
-      this.emitUsers.emit(response.hits.fields);
+      this.emitUsers.emit(response.hits);
     });
   }
 
