@@ -79,7 +79,7 @@ export class UsersFormComponent {
       console.log(`${type}: ${$event}`);
       this.dataService.search($event).pipe(first()).subscribe((response: Response) => {
         console.log(response);
-        this.emitUsers.emit(response.hits);
+        this.emitUsers.emit(response.hits.fields);
       });
     }
   }
@@ -88,7 +88,7 @@ export class UsersFormComponent {
     const user = this.formGroup.value;
     this.dataService.search(user).pipe(first()).subscribe((response: Response) => {
       console.log(response);
-      this.emitUsers.emit(response.hits);
+      this.emitUsers.emit(response.hits.fields);
     });
   }
 
