@@ -1,6 +1,8 @@
 import { UserResponse } from "./userResponse";
 
 export interface Response {
-    hits: UserResponse[];
+    hits: {
+        fields: UserResponse[];
+    }
     total_hits: number;
 }
