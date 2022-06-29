@@ -8,7 +8,7 @@ import { User } from "../models/user";
     providedIn: 'root'
 })
 export class DataService {
-    url = 'http://10.17.134.107:8094/api/index/argo/query';
+    url = '';
     username = '';
     password = '';
 
@@ -16,11 +16,9 @@ export class DataService {
 
     search(value: string) {
       const headers = {
-        'Ocp-Apim-Subscription-Key': '92ed2d08af93477ebef8d5d2cdd02da8',
-        'Ocp-Apim-Trace': 'true',
         'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + btoa(`${this.username}:${this.password}`)    
-      }
+        'Authorization': 'Basic ' + btoa(`${this.username}:${this.password}`)
+    }
       const body = {
         "query" : {
           "field": "_all",
@@ -33,37 +31,10 @@ export class DataService {
         "highlight": {}
       };
       console.log(body);
-      return this.httpClient.post<Response>(this.url, JSON.stringify(body), { headers });
+      const post = this.httpClient.post<Response>(this.url, JSON.stringify(body), { headers });
+      console.log(post);
+      return post;
     }
-
-    searchUser(user: User) {
-      const headers = {
-        'Ocp-Apim-Subscription-Key': '92ed2d08af93477ebef8d5d2cdd02da8',
-        'Ocp-Apim-Trace': 'true',
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + btoa(`${this.username}:${this.password}`)
-      }
-
-      let searchString = '';
-      searchString += (user.firstName ? `"firstName": "${user.firstName}", ` : '');
-      searchString += (user.lastName ? `"lastName": ${user.lastName}", ` : '');
-      searchString += (user.email ? `"email": "${user.email}", ` : '');
-      searchString += (user.phone ? `"phone": "${user.phone}", ` : '');
-      searchString += (user.consumerId ? `"consumerId": "${user.consumerId}"` : '');
-
-      console.log(searchString);
-
-      const body = {
-        "query" :{
-          "query" : searchString
-        },
-        "size" : 200,
-        "fields" : ["*"]
-      };
-      // const url = 'https://livesearchapi.azure-api.net/api/index/intranet_persistence/test';
-      // return this.httpClient.get<Response>('https://livesearchapi.azure-api.net/api/index/intranet_persistence/test');
-      return this.httpClient.post<Response>(this.url, JSON.stringify(body), { headers });
-  }
 
     getResponse(): Observable<Response> {
       return this.httpClient.get<Response>('https://livesearchapi.azure-api.net/api/index/intranet_persistence/test');

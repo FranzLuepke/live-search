@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Observable } from "rxjs";
-import { map, startWith } from 'rxjs/operators';
+import { first, map, startWith } from 'rxjs/operators';
 import { Response } from "src/app/models/response";
 import { User } from "src/app/models/user";
 import { DataService } from "src/app/services/data.service";
@@ -76,7 +76,8 @@ export class UsersFormComponent {
   public search(type: 'firstName' | 'lastName' | 'email' | 'phone' | 'consumerId', $event: any) {
     if ($event?.length > 2) {
       if (type === 'firstName' ||  type === 'lastName') {
-        this.dataService.search($event).subscribe((response: Response) => {
+        this.dataService.search($event).pipe(first()).subscribe((response: Response) => {
+          console.log(response);
           this.emitUsers.emit(response.hits);
         });
       }
@@ -85,7 +86,8 @@ export class UsersFormComponent {
 
   public async checkUser() {
     const user = this.formGroup.value;
-    this.dataService.searchUser(user).subscribe((response: Response) => {
+    this.dataService.search(user).pipe(first()).subscribe((response: Response) => {
+      console.log(response);
       this.emitUsers.emit(response.hits);
     });
     // this.dataService.getResponse().subscribe((response: Response) => {
