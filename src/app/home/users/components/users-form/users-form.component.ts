@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 import { Observable } from "rxjs";
 import { first, map, startWith } from 'rxjs/operators';
 import { Response } from "src/app/models/response";
-import { User } from "src/app/models/user";
+import { UserResponse } from "src/app/models/userResponse";
 import { DataService } from "src/app/services/data.service";
 
 export interface Options {
@@ -20,7 +20,7 @@ export interface Options {
     styleUrls: ['./users-form.component.scss'],
 })
 export class UsersFormComponent {
-  @Output() emitUsers = new EventEmitter<User[]>();
+  @Output() emitUsers = new EventEmitter<UserResponse[]>();
   formGroup: FormGroup;
   options: Options = { 
     firstName: ['John', 'Johny', 'Arnold'],
@@ -30,17 +30,18 @@ export class UsersFormComponent {
     consumerId: [],
   };
   filteredOptions: Observable<Options>;
+  readonly EMAIL_REGX = '[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}';
 
   constructor(
     private formBuilder: FormBuilder,
     private dataService: DataService,
   ) {
     this.formGroup = this.formBuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.pattern(this.EMAIL_REGX)]],
       phone: ['', [Validators.required, Validators.minLength(6)]],
-      consumerId: ['', [Validators.required]],
+      consumerId: ['', [Validators.required, Validators.minLength(5)]],
     });
     this.filteredOptions = this.formGroup.valueChanges.pipe(
       startWith(''),
@@ -74,13 +75,12 @@ export class UsersFormComponent {
   }
 
   public search(type: 'firstName' | 'lastName' | 'email' | 'phone' | 'consumerId', $event: any) {
-    if ($event?.length > 2) {
-      if (type === 'firstName' ||  type === 'lastName') {
-        this.dataService.search($event).pipe(first()).subscribe((response: Response) => {
-          console.log(response);
-          this.emitUsers.emit(response.hits);
-        });
-      }
+    if (this.formGroup.get(type)?.valid) {
+      console.log(`${type}: ${$event}`);
+      this.dataService.search($event).pipe(first()).subscribe((response: Response) => {
+        console.log(response);
+        this.emitUsers.emit(response.hits);
+      });
     }
   }
 
@@ -90,9 +90,6 @@ export class UsersFormComponent {
       console.log(response);
       this.emitUsers.emit(response.hits);
     });
-    // this.dataService.getResponse().subscribe((response: Response) => {
-    //   this.emitUsers.emit(response.hits);
-    // });
   }
 
   public isFormValid() {

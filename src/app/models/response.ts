@@ -1,6 +1,6 @@
-import { User } from "./user";
+import { UserResponse } from "./userResponse";
 
 export interface Response {
-    hits: User[];
+    hits: UserResponse[];
     total_hits: number;
 }

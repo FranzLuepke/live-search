@@ -47,7 +47,6 @@
       matInput
       formControlName="phone"
       [matAutocomplete]="phone"
-      type="number"
       (ngModelChange)="search('phone', $event)"
     >
     <mat-autocomplete #phone="matAutocomplete">
@@ -70,7 +69,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <button mat-raised-button color="primary" [disabled]="isFormValid()" (click)="checkUser()">
+  <!-- <button mat-raised-button color="primary" [disabled]="isFormValid()" (click)="checkUser()">
     CHECK USER
-  </button>
+  </button> -->
 </form>
