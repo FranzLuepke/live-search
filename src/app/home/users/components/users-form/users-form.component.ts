@@ -30,7 +30,7 @@ export class UsersFormComponent {
     consumerId: [],
   };
   filteredOptions: Observable<Options>;
-  readonly EMAIL_REGX = '[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}';
+  readonly EMAIL_REGX = '[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,4}';
 
   constructor(
     private formBuilder: FormBuilder,
