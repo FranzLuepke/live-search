@@ -81,7 +81,7 @@ export class UsersFormComponent {
   public search(type: 'searchField' | 'firstName' | 'lastName' | 'email' | 'phone' | 'consumerId', $event: any) {
     if (this.formGroup.get(type)?.valid) {
       console.log(`${type}: ${$event}`);
-      this.dataService.search($event).pipe(first()).subscribe((response: Response) => {
+      this.dataService.liveSearch($event).pipe(first()).subscribe((response: Response) => {
         console.log(response);
         this.emitUsers.emit(response.hits);
       });
@@ -90,7 +90,7 @@ export class UsersFormComponent {
 
   public async checkUser() {
     const user = this.formGroup.value;
-    this.dataService.search(user).pipe(first()).subscribe((response: Response) => {
+    this.dataService.manualSearch(user).pipe(first()).subscribe((response: Response) => {
       console.log(response);
       this.emitUsers.emit(response.hits);
     });

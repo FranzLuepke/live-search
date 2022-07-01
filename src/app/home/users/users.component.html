@@ -16,10 +16,11 @@
         Users search
       </div>
       <app-users-table
-        [dataSource]="dataSource"
+        [users]="users"
         [noRegistersFound]="noRegistersFound"
         (queryUserDetails)="searchDetailedInformation($event)"
       ></app-users-table>
+      <div *ngIf="noRegistersFound" class="no-registers">No registers found.</div>
       </div>
   </div>
 </div>

@@ -10,7 +10,7 @@ import { DataService } from "src/app/services";
     styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent {
-  dataSource: User[] = [];
+  users: User[] = [];
   noRegistersFound = false;
 
   constructor(
@@ -27,18 +27,20 @@ export class UsersComponent {
         email: response.fields?.EMAIL_ADDRESS,
         phone: response.fields?.CNSMR_HOME_PHONE_NBR,
         consumerId: response.fields?.CNSMR_ID,
+        loyaltyID: response.fields?.CNSMR_LOYALTY_NUMBER,
+        loyaltyTier: response.fields?.CNSMR_LOYALTY_TIER,
+        addressLine: response.fields?.CNSMR_ADDRESS_LINE1,
         genderCode: '',
         prefixCode: '',
         middleName: '',
         addressName: '',
         addressCityName: '',
-        addressLine: '',
         emailTypeCode: '',
         phoneId: '',
         phoneNumber: '',
       });
     });
-    this.dataSource = newUsers;
+    this.users = newUsers;
     if (newUsers.length === 0) {
       this.noRegistersFound = true;
     } else {
@@ -52,8 +54,5 @@ export class UsersComponent {
 
   searchDetailedInformation(consumerId: string) {
     console.log('DETAILS QUERY');
-    this.dataService.getMoreDetails(consumerId).subscribe((r) => {
-      console.log(r);
-    });
   }
 }

@@ -13,6 +13,8 @@ export class User {
     emailTypeCode?: string;
     phoneId?: string;
     phoneNumber?: string;
+    loyaltyID?: string;
+    loyaltyTier?: string;
 
     constructor(
         consumerId: string,
@@ -29,6 +31,8 @@ export class User {
         emailTypeCode: string,
         phoneId: string,
         phoneNumber: string,
+        loyaltyID: string,
+        loyaltyTier: string,
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -44,5 +48,7 @@ export class User {
         this.emailTypeCode = emailTypeCode;
         this.phoneId = phoneId;
         this.phoneNumber = phoneNumber;
+        this.loyaltyID = loyaltyID;
+        this.loyaltyTier = loyaltyTier;
     }
 }

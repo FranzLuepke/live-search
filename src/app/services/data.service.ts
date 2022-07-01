@@ -9,45 +9,69 @@ import * as env from 'src/environments/environment';
     providedIn: 'root'
 })
 export class DataService {
-    constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
-    search(value: string) {
-      const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + btoa(`${env.environment.auth.username}:${env.environment.auth.password}`)
-    }
-      const body = {
-        "query" : {
-          "field": "_all",
-          "prefix": value
-        },
-        "size": 1,
-        "from": 0,
-        "fields" : ["*"],
-        "explain": false,
-        "highlight": {}
-      };
-      console.log(body);
-      return this.httpClient.post<Response>(env.environment.endpoint, JSON.stringify(body), { headers });
-    }
+  liveSearch(value: string) {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(`${env.environment.auth.username}:${env.environment.auth.password}`)
+  }
+    const body = {
+      "query" : {
+        "field": "_all",
+        "prefix": value
+      },
+      "size": 10,
+      "from": 0,
+      "fields" : ["*"],
+      "explain": false,
+      "highlight": {}
+    };
+    console.log(body);
+    return this.httpClient.post<Response>(env.environment.endpoint, JSON.stringify(body), { headers });
+  }
 
-    getMoreDetails(consumerId: string) {
-      const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + btoa(`${env.environment.auth.username}:${env.environment.auth.password}`)
+  manualSearch(user: User) {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(`${env.environment.auth.username}:${env.environment.auth.password}`)
     }
-      const body = {
-        "query" : {
-          "field": "_all",
-          "prefix": consumerId
-        },
-        "size": 1,
-        "from": 0,
-        "fields" : ["*"],
-        "explain": false,
-        "highlight": {}
-      };
-      console.log(body);
-      return this.httpClient.post<Response>(env.environment.endpoint+'/detail', JSON.stringify(body), { headers });
-    }
+    const body = {
+      "query" : {
+        "disjuncts": [
+          {
+            "field": "CNSMR_ID",
+            "match": user?.consumerId
+          },
+          {
+            "field": "CNSMR_PHONE_NBR",
+            "match": user?.phone
+          },
+          {
+            "field": "EMAIL_ADDRESS",
+            "match": user?.email
+          },
+          {
+            "field": "FIRST_NAME",
+            "match": user?.firstName
+          },
+          {
+            "field": "LAST_NAME",
+            "match": user?.lastName
+          }
+        ]
+      },
+      "size": 10,
+      "from": 0,
+      "fields" : ["*"],
+      "explain": false,
+      "highlight": {}
+    };
+    console.log(body);
+    return this.httpClient.post<Response>(env.environment.endpoint, JSON.stringify(body), { headers });
+  }
+
+  getMoreDetails(consumerId: string) {
+    console.log("Feature coming soon.");
+  }
 }

@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UsersTableComponent } from './components/users-table/users-table.component';
 import { UsersFormComponent } from './components/users-form/users-form.component';
 import { MatTableModule } from '@angular/material/table'; 
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,8 @@ import { MatTableModule } from '@angular/material/table';
         MatButtonModule,
         MatIconModule,
         MatTableModule,
+        MatPaginatorModule,
+        
     ],
     exports: [UsersComponent],
 })

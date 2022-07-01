@@ -20,7 +20,6 @@
       matInput
       formControlName="firstName"
       [matAutocomplete]="firstName"
-      (ngModelChange)="search('firstName', $event)"
     >
     <mat-autocomplete #firstName="matAutocomplete" [displayWith]="displayFn">
       <mat-option *ngFor="let option of options['firstName']" [value]="option">
@@ -34,7 +33,6 @@
       matInput
       formControlName="lastName"
       [matAutocomplete]="lastName"
-      (ngModelChange)="search('lastName', $event)"
     >
     <mat-autocomplete #lastName="matAutocomplete">
       <mat-option *ngFor="let option of options['lastName']" [value]="option">
@@ -48,7 +46,6 @@
       matInput
       formControlName="email"
       [matAutocomplete]="email"
-      (ngModelChange)="search('email', $event)"
     >
     <mat-autocomplete #email="matAutocomplete">
       <mat-option *ngFor="let option of options['email']" [value]="option">
@@ -62,7 +59,6 @@
       matInput
       formControlName="phone"
       [matAutocomplete]="phone"
-      (ngModelChange)="search('phone', $event)"
     >
     <mat-autocomplete #phone="matAutocomplete">
       <mat-option *ngFor="let option of options['phone']" [value]="option">
@@ -76,7 +72,6 @@
       matInput
       formControlName="consumerId"
       [matAutocomplete]="consumerId"
-      (ngModelChange)="search('consumerId', $event)"
     >
     <mat-autocomplete #consumerId="matAutocomplete">
       <mat-option *ngFor="let option of options['consumerId']" [value]="option">
