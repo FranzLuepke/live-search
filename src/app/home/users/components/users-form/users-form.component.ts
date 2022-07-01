@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Observable } from "rxjs";
 import { first, map, startWith } from 'rxjs/operators';
@@ -21,6 +21,7 @@ export interface Options {
     styleUrls: ['./users-form.component.scss'],
 })
 export class UsersFormComponent {
+  @Input() noUsersFound = false;
   @Output() emitUsers = new EventEmitter<{ fields: UserResponse; }[]>();
   formGroup: FormGroup;
   options: Options = { 

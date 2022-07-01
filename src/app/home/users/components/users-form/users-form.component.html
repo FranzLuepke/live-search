@@ -13,7 +13,10 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <button mat-button class="button" (click)="toggleAdvancedSearch()">Advanced search</button>
+  <div *ngIf="noUsersFound" class="no-registers">No guests found.</div>
+  <button mat-button class="button" (click)="toggleAdvancedSearch()">
+    Advanced search
+  </button>
   <mat-form-field *ngIf="advancedSearch" appearance="outline">
     <mat-label>First Name</mat-label>
     <input
