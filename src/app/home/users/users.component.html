@@ -17,7 +17,9 @@
       </div>
       <app-users-table
         [dataSource]="dataSource"
+        [noRegistersFound]="noRegistersFound"
+        (queryUserDetails)="searchDetailedInformation($event)"
       ></app-users-table>
-    </div>
+      </div>
   </div>
 </div>

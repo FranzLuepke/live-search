@@ -7,6 +7,7 @@ import { UserResponse } from "src/app/models/userResponse";
 import { DataService } from "src/app/services/data.service";
 
 export interface Options {
+  searchField: string[];
   firstName: string[];
   lastName: string[];
   email: string[];
@@ -23,6 +24,7 @@ export class UsersFormComponent {
   @Output() emitUsers = new EventEmitter<{ fields: UserResponse; }[]>();
   formGroup: FormGroup;
   options: Options = { 
+    searchField: [],
     firstName: ['John', 'Johny', 'Arnold'],
     lastName: [],
     email: [],
@@ -30,6 +32,7 @@ export class UsersFormComponent {
     consumerId: [],
   };
   filteredOptions: Observable<Options>;
+  advancedSearch = false;
   readonly EMAIL_REGX = '[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[A-Za-z]{2,4}';
 
   constructor(
@@ -37,6 +40,7 @@ export class UsersFormComponent {
     private dataService: DataService,
   ) {
     this.formGroup = this.formBuilder.group({
+      searchField: ['', [Validators.minLength(3)]],  
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.pattern(this.EMAIL_REGX)]],
@@ -69,12 +73,12 @@ export class UsersFormComponent {
     return user ? user : '';
   }
 
-  private _filter(value: string, type: 'firstName' | 'lastName' | 'email' | 'phone' | 'consumerId'): string[] {
+  private _filter(value: string, type: 'searchField' | 'firstName' | 'lastName' | 'email' | 'phone' | 'consumerId'): string[] {
       const filterValue = value?.toLowerCase();
       return this.options[type].filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  public search(type: 'firstName' | 'lastName' | 'email' | 'phone' | 'consumerId', $event: any) {
+  public search(type: 'searchField' | 'firstName' | 'lastName' | 'email' | 'phone' | 'consumerId', $event: any) {
     if (this.formGroup.get(type)?.valid) {
       console.log(`${type}: ${$event}`);
       this.dataService.search($event).pipe(first()).subscribe((response: Response) => {
@@ -98,6 +102,10 @@ export class UsersFormComponent {
     this.emailControl?.invalid &&
     this.phoneControl?.invalid &&
     this.consumerIdControl?.invalid;
+  }
+
+  toggleAdvancedSearch() {
+    this.advancedSearch = !this.advancedSearch;
   }
 
   get firstNameControl() {

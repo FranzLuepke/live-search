@@ -1,5 +1,20 @@
 <form [formGroup]="formGroup" class="users__form">
   <mat-form-field appearance="outline">
+    <mat-label>Searching field</mat-label>
+    <input
+      matInput
+      formControlName="searchField"
+      [matAutocomplete]="searchField"
+      (ngModelChange)="search('searchField', $event)"
+    >
+    <mat-autocomplete #searchField="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let option of options['searchField']" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <button mat-button class="button" (click)="toggleAdvancedSearch()">Advanced search</button>
+  <mat-form-field *ngIf="advancedSearch" appearance="outline">
     <mat-label>First Name</mat-label>
     <input
       matInput
@@ -13,7 +28,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <mat-form-field appearance="outline">
+  <mat-form-field *ngIf="advancedSearch" appearance="outline">
     <mat-label>Last Name</mat-label>
     <input
       matInput
@@ -27,7 +42,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <mat-form-field appearance="outline">
+  <mat-form-field *ngIf="advancedSearch" appearance="outline">
     <mat-label>Email</mat-label>
     <input
       matInput
@@ -41,7 +56,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <mat-form-field appearance="outline">
+  <mat-form-field *ngIf="advancedSearch" appearance="outline">
     <mat-label>Phone number</mat-label>
     <input
       matInput
@@ -55,7 +70,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <mat-form-field appearance="outline">
+  <mat-form-field *ngIf="advancedSearch" appearance="outline">
     <mat-label>Customer ID</mat-label>
     <input
       matInput
@@ -69,7 +84,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <!-- <button mat-raised-button color="primary" [disabled]="isFormValid()" (click)="checkUser()">
+  <button *ngIf="advancedSearch" mat-raised-button color="primary" [disabled]="isFormValid()" (click)="checkUser()">
     CHECK USER
-  </button> -->
+  </button>
 </form>
