@@ -11,7 +11,7 @@
     <app-users-form
       (emitUsers)="userWasEmitted($event)"
     ></app-users-form>
-    <div *ngIf="!noRegistersFound" class="no-registers">No guests found.</div>
+    <div *ngIf="noRegistersFound" class="no-registers">No guests found.</div>
     <div class="users__content__table">
       <div>
         Users search
