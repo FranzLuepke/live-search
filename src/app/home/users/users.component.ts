@@ -52,7 +52,32 @@ export class UsersComponent {
     await this.router.navigate(['home']);
   }
 
-  searchDetailedInformation(consumerId: string) {
+  searchDetailedInformation(id: string) {
     console.log('DETAILS QUERY');
+    this.dataService.getMoreDetails(id).subscribe((data) => {
+      console.log(data);
+      data.hits.forEach((hit) => {
+        const fields = hit.fields;
+        const found = this.users.find((user) => user.consumerId === fields.CNSMR_ID);
+        if (found) {
+          found.firstName = fields.FIRST_NAME;
+          found.lastName = fields.LAST_NAME;
+          found.email = fields.EMAIL_ADDRESS;
+          found.phone = fields.CNSMR_HOME_PHONE_NBR;
+          found.consumerId = fields.CNSMR_ID;
+          found.loyaltyID = fields.CNSMR_LOYALTY_NUMBER;
+          found.loyaltyTier = fields.CNSMR_LOYALTY_TIER;
+          found.addressLine = fields.CNSMR_ADDRESS_LINE1;
+          found.genderCode = fields.CNSMR_GENDER_CODE;
+          found.prefixCode = '';
+          found.middleName = fields.CNSMR_MIDDLE_NAME;
+          found.addressName = '';
+          found.addressCityName = '';
+          found.emailTypeCode = '';
+          found.phoneId = '';
+          found.phoneNumber = fields.CNSMR_PHONE_NBR;
+        }
+      });
+    });
   }
 }

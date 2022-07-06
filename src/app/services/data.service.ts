@@ -71,7 +71,11 @@ export class DataService {
     return this.httpClient.post<Response>(env.environment.endpoint, JSON.stringify(body), { headers });
   }
 
-  getMoreDetails(consumerId: string) {
-    console.log("Feature coming soon.");
+  getMoreDetails(id: string) {
+    const headers = {
+      'Content-Type': 'application/json',
+    }
+    const body = { id };
+    return this.httpClient.post<Response>("http://127.0.0.1:8080/user-detail", JSON.stringify(body), { headers });
   }
 }

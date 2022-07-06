@@ -1,5 +1,5 @@
 {
-  "endpoint": "url",
+  "endpoint": " https://livesearchapi.azure-api.net/api/index/intranet_persistence/query/detail",
   "username": "user",
   "password": "password"
 }
