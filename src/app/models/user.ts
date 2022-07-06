@@ -1,4 +1,5 @@
 export class User {
+    id?: string;
     consumerId?: string;
     firstName?: string;
     lastName?: string;
@@ -17,6 +18,7 @@ export class User {
     loyaltyTier?: string;
 
     constructor(
+        id: string,
         consumerId: string,
         firstName: string,
         lastName: string,
@@ -34,6 +36,7 @@ export class User {
         loyaltyID: string,
         loyaltyTier: string,
     ) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

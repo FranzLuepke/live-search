@@ -13,6 +13,7 @@ export class DataService {
 
   liveSearch(value: string) {
     const headers = {
+      'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
       'Authorization': 'Basic ' + btoa(`${env.environment.auth.username}:${env.environment.auth.password}`)
   }
@@ -33,6 +34,7 @@ export class DataService {
 
   manualSearch(user: User) {
     const headers = {
+      'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
       'Authorization': 'Basic ' + btoa(`${env.environment.auth.username}:${env.environment.auth.password}`)
     }
@@ -76,6 +78,7 @@ export class DataService {
       'Content-Type': 'application/json',
     }
     const body = { id };
-    return this.httpClient.post<Response>("http://127.0.0.1:8080/user-detail", JSON.stringify(body), { headers });
+    console.log(body);
+    return this.httpClient.post<Response>("http://127.0.0.1:8091/user-detail", JSON.stringify(body), { headers });
   }
 }

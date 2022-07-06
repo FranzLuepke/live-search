@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Observable } from "rxjs";
 import { first, map, startWith } from 'rxjs/operators';
-import { Response } from "src/app/models/response";
+import { Hit, Response } from "src/app/models/response";
 import { UserResponse } from "src/app/models/userResponse";
 import { DataService } from "src/app/services/data.service";
 
@@ -22,7 +22,7 @@ export interface Options {
 })
 export class UsersFormComponent {
   @Input() noUsersFound = false;
-  @Output() emitUsers = new EventEmitter<{ fields: UserResponse; }[]>();
+  @Output() emitUsers = new EventEmitter<Hit[]>();
   formGroup: FormGroup;
   options: Options = { 
     searchField: [],

@@ -61,8 +61,9 @@ export class UsersTableComponent implements AfterViewInit, OnChanges {
   }
 
   expandElement($event: MouseEvent, element: User) {
+    console.log(element);
     this.expandedElement = this.expandedElement === element ? null : element;
     $event.stopPropagation()
-    this.queryUserDetails.emit(element.consumerId);
+    this.queryUserDetails.emit(element.id);
   }
 }
