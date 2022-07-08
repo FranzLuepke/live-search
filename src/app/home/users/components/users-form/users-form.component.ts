@@ -82,7 +82,7 @@ export class UsersFormComponent {
   public search(type: 'searchField' | 'firstName' | 'lastName' | 'email' | 'phone' | 'consumerId', $event: any) {
     if (this.formGroup.get(type)?.valid) {
       console.log(`${type}: ${$event}`);
-      this.dataService.liveSearch($event).pipe(first()).subscribe((response: Response) => {
+      this.dataService.liveSearch(type, $event).pipe(first()).subscribe((response: Response) => {
         console.log(response);
         this.emitUsers.emit(response.hits);
       });
@@ -98,11 +98,16 @@ export class UsersFormComponent {
   }
 
   public isFormValid() {
-    return this.firstNameControl?.invalid &&
-    this.lastNameControl?.invalid &&
-    this.emailControl?.invalid &&
-    this.phoneControl?.invalid &&
-    this.consumerIdControl?.invalid;
+    return (this.firstNameControl?.invalid || this.lastNameControl?.invalid)
+    && (this.firstNameControl?.invalid || this.emailControl?.invalid)
+    && (this.firstNameControl?.invalid || this.phoneControl?.invalid)
+    && (this.firstNameControl?.invalid || this.consumerIdControl?.invalid)
+    && (this.lastNameControl?.invalid || this.emailControl?.invalid)
+    && (this.lastNameControl?.invalid || this.phoneControl?.invalid)
+    && (this.lastNameControl?.invalid || this.consumerIdControl?.invalid)
+    && (this.emailControl?.invalid || this.phoneControl?.invalid)
+    && (this.emailControl?.invalid || this.consumerIdControl?.invalid)
+    && (this.phoneControl?.invalid || this.consumerIdControl?.invalid);
   }
 
   toggleAdvancedSearch() {

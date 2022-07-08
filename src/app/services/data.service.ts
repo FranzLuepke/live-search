@@ -11,15 +11,23 @@ import * as env from 'src/environments/environment';
 export class DataService {
   constructor(private httpClient: HttpClient) {}
 
-  liveSearch(value: string) {
+  liveSearch(type: string, value: string) {
     const headers = {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
       'Authorization': 'Basic ' + btoa(`${env.environment.auth.username}:${env.environment.auth.password}`)
   }
+  let field = '';
+    if (type === 'firstName') {
+      field = 'FIRST_NAME';
+    } else if (type === 'lastName') {
+      field = 'LAST_NAME';
+    } else {
+      field = '_all';
+    }
     const body = {
       "query" : {
-        "field": "_all",
+        "field": field,
         "prefix": value
       },
       "size": 10,

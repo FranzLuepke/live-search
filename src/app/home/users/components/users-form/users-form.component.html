@@ -1,28 +1,11 @@
 <form [formGroup]="formGroup" class="users__form">
   <mat-form-field appearance="outline">
-    <mat-label>Searching field</mat-label>
-    <input
-      matInput
-      formControlName="searchField"
-      [matAutocomplete]="searchField"
-      (ngModelChange)="search('searchField', $event)"
-    >
-    <mat-autocomplete #searchField="matAutocomplete" [displayWith]="displayFn">
-      <mat-option *ngFor="let option of options['searchField']" [value]="option">
-        {{ option }}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <div *ngIf="noUsersFound" class="no-registers">No guests found.</div>
-  <button mat-button class="button" (click)="toggleAdvancedSearch()">
-    Advanced search
-  </button>
-  <mat-form-field *ngIf="advancedSearch" appearance="outline">
     <mat-label>First Name</mat-label>
     <input
       matInput
       formControlName="firstName"
       [matAutocomplete]="firstName"
+      (ngModelChange)="search('firstName', $event)"
     >
     <mat-autocomplete #firstName="matAutocomplete" [displayWith]="displayFn">
       <mat-option *ngFor="let option of options['firstName']" [value]="option">
@@ -30,12 +13,13 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <mat-form-field *ngIf="advancedSearch" appearance="outline">
+  <mat-form-field appearance="outline">
     <mat-label>Last Name</mat-label>
     <input
       matInput
       formControlName="lastName"
       [matAutocomplete]="lastName"
+      (ngModelChange)="search('lastName', $event)"
     >
     <mat-autocomplete #lastName="matAutocomplete">
       <mat-option *ngFor="let option of options['lastName']" [value]="option">
@@ -43,7 +27,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <mat-form-field *ngIf="advancedSearch" appearance="outline">
+  <mat-form-field appearance="outline">
     <mat-label>Email</mat-label>
     <input
       matInput
@@ -56,7 +40,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <mat-form-field *ngIf="advancedSearch" appearance="outline">
+  <mat-form-field appearance="outline">
     <mat-label>Phone number</mat-label>
     <input
       matInput
@@ -69,7 +53,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <mat-form-field *ngIf="advancedSearch" appearance="outline">
+  <mat-form-field appearance="outline">
     <mat-label>Customer ID</mat-label>
     <input
       matInput
@@ -82,7 +66,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <button *ngIf="advancedSearch" mat-raised-button color="primary" [disabled]="isFormValid()" (click)="checkUser()">
+  <button mat-raised-button color="primary" [disabled]="isFormValid()" (click)="checkUser()">
     CHECK USER
   </button>
 </form>
