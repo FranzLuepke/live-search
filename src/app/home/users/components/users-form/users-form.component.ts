@@ -26,7 +26,7 @@ export class UsersFormComponent {
   formGroup: FormGroup;
   options: Options = { 
     searchField: [],
-    firstName: ['John', 'Johny', 'Arnold'],
+    firstName: [],
     lastName: [],
     email: [],
     phone: [],
@@ -35,6 +35,7 @@ export class UsersFormComponent {
   filteredOptions: Observable<Options>;
   advancedSearch = false;
   readonly EMAIL_REGX = '[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[A-Za-z]{2,4}';
+  searchEnabled = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -80,12 +81,15 @@ export class UsersFormComponent {
   }
 
   public search(type: 'searchField' | 'firstName' | 'lastName' | 'email' | 'phone' | 'consumerId', $event: any) {
-    if (this.formGroup.get(type)?.valid) {
-      console.log(`${type}: ${$event}`);
-      this.dataService.liveSearch(type, $event).pipe(first()).subscribe((response: Response) => {
-        console.log(response);
-        this.emitUsers.emit(response.hits);
-      });
+    if (this.searchEnabled) {
+      if (this.formGroup.get(type)?.valid) {
+        console.log(`${type}: ${$event}`);
+        this.dataService.liveSearch(type, $event).pipe(first()).subscribe((response: Response) => {
+          console.log(response);
+          this.emitUsers.emit(response.hits);
+          this.searchEnabled = false;
+        });
+      }
     }
   }
 
