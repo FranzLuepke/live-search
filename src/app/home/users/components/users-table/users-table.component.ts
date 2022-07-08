@@ -29,20 +29,20 @@ export class UsersTableComponent implements AfterViewInit, OnChanges {
     'firstName',
     'lastName',
     'email',
-    'phone',
+    // 'phone',
     'loyaltyID',
     'loyaltyTier',
-    'addressLine',
+    // 'addressLine',
   ];
   columnNames = [
     { key: 'consumerId', value: 'Consumer Id'},
     { key: 'firstName', value: 'First Name'},
     { key: 'lastName', value: 'Last Name'},
     { key: 'email', value: 'Email'},
-    { key: 'phone', value: 'Phone'},
+    // { key: 'phone', value: 'Phone'},
     { key: 'loyaltyID', value: 'Loyalty ID'},
     { key: 'loyaltyTier', value: 'Loyalty Tier'},
-    { key: 'addressLine', value: 'Address Line'},
+    // { key: 'addressLine', value: 'Address Line'},
   ];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: User | null = {};

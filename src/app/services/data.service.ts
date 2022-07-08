@@ -87,6 +87,6 @@ export class DataService {
     }
     const body = { id };
     console.log(body);
-    return this.httpClient.post<Response>("http://127.0.0.1:8091/user-detail", JSON.stringify(body), { headers });
+    return this.httpClient.post<Response>("http://127.0.0.1:8088/user-detail", JSON.stringify(body), { headers });
   }
 }

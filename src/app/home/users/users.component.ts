@@ -59,11 +59,11 @@ export class UsersComponent {
     console.log(id);
     this.dataService.getMoreDetails(id).subscribe((data) => {
       console.log(data);
-      data.hits.forEach((hit) => {
-        const fields = hit.fields;
+      // data.hits.forEach((hit) => {
+        const fields = data.content ?? data.hits[0].fields;
         const found = this.users.find((user) => user.consumerId === fields.CNSMR_ID);
         if (found) {
-          found.id = hit.id;
+          // found.id = hit.id;
           found.firstName = fields.FIRST_NAME;
           found.lastName = fields.LAST_NAME;
           found.email = fields.EMAIL_ADDRESS;
@@ -81,7 +81,7 @@ export class UsersComponent {
           found.phoneId = '';
           found.phoneNumber = fields.CNSMR_PHONE_NBR;
         }
-      });
+      // });
     });
   }
 }
